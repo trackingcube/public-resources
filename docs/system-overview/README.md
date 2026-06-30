@@ -6,6 +6,11 @@ Use this section for public, cross-tier documentation:
 - Public terminology/glossary
 - Access model and security posture (public-safe version)
 
+## Assets
+
+- `assets/site-participants/logos/` — participating site / partner logos
+- `assets/yourtrack-eco/` — YourTrack ecosystem product logos (`yourtrack`, `rnda`, `trackingcube`)
+
 ## Suggested Starter Docs
 
 - `overview.md`

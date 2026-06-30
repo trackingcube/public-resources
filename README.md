@@ -11,6 +11,7 @@ This repository is structured to support:
 
 - `docs/` — primary documentation root
   - `system-overview/` — platform-level and cross-tier docs
+    - `assets/yourtrack-eco/` — ecosystem product logos (YourTrack, RNDA, TrackingCube)
   - `tiers/` — tier-specific documentation for `tier-1` to `tier-6`
 
 ## Where to Start

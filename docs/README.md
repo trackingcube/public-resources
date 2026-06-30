@@ -5,6 +5,8 @@ This folder contains all official public documentation for TrackingCube.
 ## Sections
 
 - `system-overview/` — concepts and docs that apply across multiple tiers
+  - `assets/site-participants/logos/` — site / partner logos
+  - `assets/yourtrack-eco/` — YourTrack ecosystem product logos
 - `tiers/` — tier-specific public docs for operational use
 
 ## Tier Convention
