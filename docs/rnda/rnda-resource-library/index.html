@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RNDA Resource Library</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Mulish:ital,wght@0,400;0,500;0,600;0,700;0,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script src="data.js"></script>
+</head>
+<body>
+<template id="__bundler_thumbnail">
+<svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+<rect width="1200" height="800" fill="#F4F2EC"></rect>
+<g transform="translate(600 360)">
+<path transform="translate(-150 -120) scale(1.5)" fill="#2E8C8C" d="M96 12c34 0 58 22 60 50 22 2 38 18 38 38 0 22-18 40-44 40H78c-30 0-54-20-54-46 0-18 12-34 30-40 0-1 0-2 0-3 0-22 18-39 42-39z"></path>
+<text x="0" y="58" text-anchor="middle" font-family="Oswald, sans-serif" font-weight="600" font-size="78" fill="#1C2E2E" letter-spacing="2">RNDA</text>
+<text x="0" y="108" text-anchor="middle" font-family="Mulish, sans-serif" font-size="26" fill="#5E7474" letter-spacing="3">RESOURCE LIBRARY</text>
+</g>
+</svg>
+</template>
+
+<div class="topbar">
+<div class="wrap inner">
+<div class="brand"><img class="logo" src="assets/rnda-cloud-teal.png" alt="RNDA"><div><span class="k">YourTrack &middot; iRNDA</span><h1>RNDA Resource Library</h1></div></div>
+<div class="totals" id="totals"></div>
+</div>
+</div>
+
+<div class="wrap">
+<div class="page-head">
+<p>Age-specific manuals, scoring forms, and manual update materials for the RNDA assessment. All documents are public — view them in a new tab or download directly.</p>
+<div class="search">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+<input id="searchInput" type="text" placeholder="Search by age (e.g. 12 months, 5 years)&hellip;">
+</div>
+<div class="dob-field">
+<span class="dob-cap">Calculate age</span>
+<input type="date" id="dobInput">
+<span class="dob-age" id="dobAge" style="display:none"></span>
+<button class="dob-clear" id="dobClear" title="Clear" style="display:none">&times;</button>
+</div>
+<div class="dob-notice" id="dobNotice" style="display:none"></div>
+<div class="search-count" id="searchCount"></div>
+</div>
+
+<section class="block">
+<div class="sect-head"><h2>Age-Specific Materials</h2><div class="rule"></div><span class="ct" id="ageCount"></span></div>
+<div class="age-list" id="ageList"></div>
+</section>
+
+<section class="block">
+<div class="sect-head"><h2>Manual Updates</h2><div class="rule"></div></div>
+<div class="upd-grid">
+<div class="upd-card">
+<span class="kicker">Video &middot; July 2026</span>
+<h3>RNDA Manual Updates — Video</h3>
+<div class="video-wrap" style="margin-bottom:12px">
+<video id="updVideo" controls preload="none"></video>
+<div class="video-fallback" id="videoFallback"><p>This browser can't play the video inline. Download it to watch.</p><a class="btn btn-primary" id="videoFallbackDl" download>Download video</a></div>
+</div>
+<div class="upd-acts">
+<a class="btn btn-ghost" id="updVideoDl" download>Download video</a>
+</div>
+</div>
+<div class="upd-card">
+<span class="kicker">Presentation</span>
+<h3>RNDA Manual Updates — Presentation</h3>
+<div class="upd-acts">
+<a class="btn btn-primary" id="updPresView" target="_blank" rel="noopener">View</a>
+<a class="btn btn-ghost" id="updPresDl" download>Download</a>
+</div>
+</div>
+</div>
+</section>
+</div>
+
+<div class="foot"><div class="wrap inner"><span>Part of the YourTrack ecosystem</span><span>All materials are public &mdash; no login required</span></div></div>
+
+<script>
+const iconEye = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>`;
+const iconDl = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12"></path><path d="M7 10l5 5 5-5"></path><path d="M5 21h14"></path></svg>`;
+
+function url(rel){ return RNDA_BASE_URL + rel; }
+
+let dobMatchN = null;
+
+function renderAgeList(filterText){
+  const list = document.getElementById('ageList');
+  const q = (filterText||'').trim().toLowerCase();
+  let filtered = RNDA_AGE_GROUPS.filter(g => !q || g.label.toLowerCase().includes(q));
+  if(dobMatchN){
+    filtered = RNDA_AGE_GROUPS.filter(g => g.n === dobMatchN);
+    document.getElementById('searchCount').textContent = '';
+  } else {
+    document.getElementById('searchCount').textContent = q ? `${filtered.length} of ${RNDA_AGE_GROUPS.length} age groups match "${filterText}"` : '';
+  }
+  document.getElementById('ageCount').textContent = `${RNDA_AGE_GROUPS.length} age groups`;
+  if(!filtered.length){
+    list.innerHTML = '<div class="empty">No age groups match your search.</div>';
+    return;
+  }
+  list.innerHTML = filtered.map(g => `
+    <div class="age-row${g.n===dobMatchN ? ' dob-match' : ''}" data-n="${g.n}" id="age-row-${g.n}">
+      <span class="idx">${g.n}</span>
+      <span class="lab">${g.label}</span>
+      <div class="doc-group">
+        <div class="doc-pair" data-doc="${url(g.manual)}">
+          <span class="dn">Manual</span>
+          <div class="acts">
+            <a href="${url(g.manual)}" target="_blank" rel="noopener" title="View">${iconEye}</a>
+            <a href="${url(g.manual)}" download title="Download">${iconDl}</a>
+          </div>
+        </div>
+        <div class="doc-pair" data-doc="${url(g.score)}">
+          <span class="dn">Score Form</span>
+          <div class="acts">
+            <a href="${url(g.score)}" target="_blank" rel="noopener" title="View">${iconEye}</a>
+            <a href="${url(g.score)}" download title="Download">${iconDl}</a>
+          </div>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+function ageLabelFromMonths(m){
+  if(m < 1) return `${Math.floor(m*30)} days`;
+  if(m < 24) return `${m} month${m===1?'':'s'}`;
+  return `${(m/12).toFixed(m%12===0?0:1)} years`;
+}
+
+function handleDob(value){
+  const clearBtn = document.getElementById('dobClear');
+  const ageBadge = document.getElementById('dobAge');
+  const notice = document.getElementById('dobNotice');
+  if(!value){
+    dobMatchN = null;
+    clearBtn.style.display = 'none';
+    ageBadge.style.display = 'none';
+    notice.style.display = 'none';
+    document.getElementById('searchInput').value = '';
+    renderAgeList('');
+    return;
+  }
+  const dob = new Date(value + 'T00:00:00');
+  const now = new Date();
+  let months = (now.getFullYear() - dob.getFullYear()) * 12 + (now.getMonth() - dob.getMonth());
+  if(now.getDate() < dob.getDate()) months -= 1;
+  months = Math.max(0, months);
+  const match = RNDA_AGE_GROUPS.find(g => months >= g.minM && months <= g.maxM) || RNDA_AGE_GROUPS[RNDA_AGE_GROUPS.length-1];
+  dobMatchN = match.n;
+  clearBtn.style.display = '';
+  ageBadge.style.display = '';
+  ageBadge.textContent = ageLabelFromMonths(months);
+  notice.style.display = 'flex';
+  notice.innerHTML = `Showing age group: <b>${match.label}</b> &nbsp;<button class="linkish" id="dobViewBtn">Show all age groups</button>`;
+  document.getElementById('searchInput').value = '';
+  renderAgeList('');
+  document.getElementById('dobViewBtn').addEventListener('click', () => {
+    document.getElementById('dobInput').value = '';
+    handleDob('');
+  });
+}
+
+
+function initUpdates(){
+  const presUrl = url(RNDA_UPDATES.presentation);
+  const videoUrl = url(RNDA_UPDATES.video);
+  document.getElementById('updPresView').href = presUrl;
+  document.getElementById('updPresDl').href = presUrl;
+  document.getElementById('updVideoDl').href = videoUrl;
+  document.getElementById('videoFallbackDl').href = videoUrl;
+  const video = document.getElementById('updVideo');
+  const source = document.createElement('source');
+  source.src = videoUrl; source.type = 'video/mp4';
+  video.appendChild(source);
+  video.addEventListener('error', () => document.getElementById('videoFallback').classList.add('show'));
+}
+
+// best-effort, non-blocking existence check — marks rows that clearly fail; never blocks the page
+function checkDocs(){
+  document.querySelectorAll('.doc-pair').forEach(el => {
+    const docUrl = el.getAttribute('data-doc');
+    fetch(docUrl, { method: 'HEAD', mode: 'cors' })
+      .then(res => { if(!res.ok) markErr(el); })
+      .catch(() => {}); // cross-origin/network errors are inconclusive — don't flag
+  });
+  function markErr(el){
+    el.classList.add('err');
+    if(!el.querySelector('.err-badge')){
+      const b = document.createElement('span');
+      b.className = 'err-badge'; b.textContent = 'Unavailable';
+      el.appendChild(b);
+    }
+  }
+}
+
+function updateTotals(){
+  const total = RNDA_AGE_GROUPS.length * 2 + 2;
+  document.getElementById('totals').innerHTML = `<div class="t"><div class="num">${RNDA_AGE_GROUPS.length}</div><div class="lab">Age groups</div></div><div class="t"><div class="num">${total}</div><div class="lab">Documents</div></div>`;
+}
+
+document.getElementById('ageList').innerHTML = '<div class="skel-row"></div><div class="skel-row"></div><div class="skel-row"></div>';
+requestAnimationFrame(() => {
+  updateTotals();
+  renderAgeList('');
+  initUpdates();
+  checkDocs();
+});
+document.getElementById('searchInput').addEventListener('input', e => renderAgeList(e.target.value));
+document.getElementById('dobInput').addEventListener('change', e => handleDob(e.target.value));
+document.getElementById('dobClear').addEventListener('click', () => { document.getElementById('dobInput').value = ''; handleDob(''); });
+</script>
+</body>
+</html>
