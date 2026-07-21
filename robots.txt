@@ -1,0 +1,4 @@
+# Block all crawlers from indexing this GitHub Pages site.
+# Served at: https://trackingcube.github.io/public-resources/robots.txt
+User-agent: *
+Disallow: /
