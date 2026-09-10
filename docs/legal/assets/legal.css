@@ -1,0 +1,113 @@
+/* Shared styles for TrackingCube legal pages (privacy, disclaimer, collection notice).
+   Design language follows docs/support/index.html. */
+:root{
+  --plum:#7c2e6b;--plum-deep:#5f2151;--plum-soft:#9a4a87;
+  --coral:#f0a07e;--coral-deep:#ea8a63;
+  --slate:#61788c;
+  --paper:#f4f2ef;--surface:#fff;--surface-2:#f7f6f3;
+  --ink:#1c1c1c;--ink-2:#5a6670;--ink-3:#8a949c;
+  --line:rgba(20,24,28,.10);--line-2:rgba(20,24,28,.16);
+  --amber:#b57314;--amber-bg:#fdf5e6;--amber-line:#e8cf9c;
+  --radius:14px;--radius-lg:20px;
+  --shadow:0 1px 2px rgba(20,24,28,.05),0 8px 24px rgba(20,24,28,.07);
+  --font-display:'Oswald',sans-serif;
+  --font-body:'Mulish',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-body);background:var(--paper);color:var(--ink);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column}
+a{color:var(--plum);text-decoration:none}
+a:hover{color:var(--plum-deep);text-decoration:underline}
+.upper{text-transform:uppercase}
+
+/* Top bar */
+.topbar{background:#0e0e10;color:#fff;display:flex;align-items:center;gap:14px;padding:0 22px;height:58px;flex:0 0 58px}
+.topbar img{height:42px;width:auto;display:block}
+.topbar .sys{font-family:var(--font-display);font-weight:500;font-size:15px;letter-spacing:.015em;color:#ececed;padding-left:14px;border-left:1px solid rgba(255,255,255,.18)}
+
+/* Draft banner */
+.draft-banner{background:var(--amber-bg);border-bottom:1px solid var(--amber-line);color:var(--amber);padding:11px 22px;font-size:13.5px;text-align:center}
+.draft-banner strong{font-weight:800}
+
+.wrap{flex:1;display:flex;justify-content:center;padding:48px 22px 56px}
+.sheet{width:100%;max-width:1040px}
+
+/* Hero */
+.eyebrow{font-family:var(--font-display);font-size:12.5px;letter-spacing:.16em;color:var(--plum-soft);font-weight:500}
+h1{font-family:var(--font-display);font-weight:600;font-size:clamp(30px,5vw,46px);line-height:1.04;margin:12px 0 0;color:var(--plum-deep)}
+.rule{height:4px;width:64px;background:var(--coral);border-radius:2px;margin:24px 0 0}
+.lede{margin-top:18px;font-size:clamp(15.5px,2vw,17.5px);color:var(--ink-2);max-width:62ch;text-wrap:pretty}
+
+/* Meta chips */
+.meta-row{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px}
+.chip{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:12.5px;color:var(--ink-2)}
+.chip b{font-family:var(--font-display);font-weight:500;color:var(--ink);letter-spacing:.01em}
+
+/* Two-column doc layout */
+.doc{margin-top:38px;display:grid;grid-template-columns:1fr;gap:28px}
+/* grid items default to min-width:auto, which lets the wide table in .table-scroll
+   push the whole page sideways on narrow screens — keep them shrinkable */
+.doc > *{min-width:0}
+@media (min-width:940px){
+  .doc{grid-template-columns:216px 1fr;gap:44px;align-items:start}
+  .toc{position:sticky;top:28px}
+}
+.toc{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px 18px 16px}
+.toc h2{font-family:var(--font-display);font-weight:600;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:12px}
+.toc ol{list-style:none;counter-reset:toc;display:grid;gap:8px}
+.toc li{counter-increment:toc;font-size:13.5px;line-height:1.4;display:flex;gap:9px}
+.toc li::before{content:counter(toc);flex:0 0 18px;color:var(--ink-3);font-variant-numeric:tabular-nums;font-size:12px;padding-top:1px}
+.toc a{color:var(--ink-2)}
+.toc a:hover{color:var(--plum)}
+
+/* Body card */
+.body-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg);box-shadow:var(--shadow);padding:32px 34px}
+@media (max-width:560px){.body-card{padding:24px 20px}}
+section{scroll-margin-top:24px}
+section + section{margin-top:34px;padding-top:30px;border-top:1px solid var(--line)}
+section h2{font-family:var(--font-display);font-weight:600;font-size:20px;letter-spacing:.01em;color:var(--ink);display:flex;gap:11px;align-items:baseline}
+section h2 .num{color:var(--coral-deep);font-size:15px;font-variant-numeric:tabular-nums}
+section h3{font-family:var(--font-display);font-weight:600;font-size:15.5px;color:var(--ink);margin-top:20px}
+section p{margin-top:14px;color:var(--ink-2);overflow-wrap:break-word}
+section p strong,section li strong{color:var(--ink);font-weight:800}
+section ul{margin-top:14px;list-style:none;display:grid;gap:9px}
+/* bullets are absolutely positioned rather than flex children: a flex item cannot
+   shrink below its min-content width, which let long <code> domains overflow the card */
+section ul li{position:relative;padding-left:18px;color:var(--ink-2);overflow-wrap:break-word}
+section ul li::before{content:"";position:absolute;left:0;top:9px;width:7px;height:7px;border-radius:50%;background:var(--coral-deep)}
+
+/* Callout */
+.callout{margin-top:16px;background:var(--surface-2);border:1px solid var(--line);border-left:4px solid var(--plum-soft);border-radius:0 var(--radius) var(--radius) 0;padding:16px 18px;font-size:14.5px;color:var(--ink-2)}
+.callout p{margin-top:0}
+.callout p + p{margin-top:10px}
+
+/* Tables */
+.table-scroll{margin-top:16px;max-width:100%;overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius)}
+table{border-collapse:collapse;width:100%;min-width:460px;font-size:14px}
+th,td{text-align:left;padding:12px 16px;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:var(--surface-2);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);font-weight:800;white-space:nowrap}
+td{color:var(--ink-2)}
+td strong{color:var(--ink)}
+tr:last-child td{border-bottom:none}
+
+/* [TO CONFIRM] placeholder chip */
+.todo{display:inline-block;background:var(--amber-bg);border:1px dashed var(--amber-line);color:var(--amber);border-radius:6px;padding:1px 8px;font-size:13px;font-weight:700;white-space:normal}
+
+/* Checklist block */
+.checklist{margin-top:16px;background:var(--surface-2);border:1px solid var(--line);border-radius:var(--radius);padding:16px 20px}
+.checklist ul li{padding-left:24px}
+.checklist ul li::before{content:"";position:absolute;left:0;top:6px;width:12px;height:12px;border-radius:3px;border:1.5px solid var(--line-2);background:var(--surface)}
+
+/* Copy block for notice text meant to be pasted into a screen */
+.copy-block{margin-top:16px;background:var(--surface-2);border:1px dashed var(--line-2);border-radius:var(--radius);padding:20px 22px}
+.copy-block p:first-child{margin-top:0}
+
+/* Page nav footer */
+.page-nav{margin-top:34px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.page-nav a{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;display:block}
+.page-nav a:hover{border-color:var(--plum-soft);text-decoration:none}
+.page-nav .k{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);font-weight:800}
+.page-nav .t{font-family:var(--font-display);font-weight:500;font-size:16.5px;color:var(--plum-deep);margin-top:5px}
+
+footer{border-top:1px solid var(--line);padding:20px 22px;display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;justify-content:center;font-size:12.5px;color:var(--ink-3);text-align:center}
+
+code{overflow-wrap:break-word;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.9em;background:var(--surface-2);border:1px solid var(--line);border-radius:5px;padding:1px 6px;color:var(--ink)}
