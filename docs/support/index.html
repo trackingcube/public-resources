@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Support — TrackingCube</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&family=Mulish:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--plum:#7c2e6b;--plum-deep:#5f2151;--plum-soft:#9a4a87;--coral:#f0a07e;--coral-deep:#ea8a63;--slate:#61788c;--slate-soft:#8499aa;--paper:#f4f2ef;--surface:#fff;--surface-2:#f7f6f3;--ink:#1c1c1c;--ink-2:#5a6670;--ink-3:#8a949c;--line:rgba(20,24,28,.10);--line-2:rgba(20,24,28,.16);--radius:14px;--radius-lg:20px;--shadow:0 1px 2px rgba(20,24,28,.05),0 8px 24px rgba(20,24,28,.07);--font-display:'Oswald',sans-serif;--font-body:'Mulish',system-ui,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-body);background:var(--paper);color:var(--ink);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column}
+a{color:var(--plum);text-decoration:none}
+a:hover{color:var(--plum-deep);text-decoration:underline}
+.display{font-family:var(--font-display);font-weight:600;letter-spacing:.01em;line-height:1.05}
+.upper{text-transform:uppercase}
+.topbar{background:#0e0e10;color:#fff;display:flex;align-items:center;gap:14px;padding:0 22px;height:58px;flex:0 0 58px}
+.topbar img{height:42px;width:auto;display:block}
+.topbar .sys{font-family:var(--font-display);font-weight:500;font-size:15px;letter-spacing:.015em;color:#ececed;padding-left:14px;border-left:1px solid rgba(255,255,255,.18)}
+.wrap{flex:1;display:flex;justify-content:center;padding:56px 22px 40px}
+.sheet{width:100%;max-width:760px}
+.eyebrow{font-family:var(--font-display);font-size:12.5px;letter-spacing:.16em;color:var(--plum-soft);font-weight:500}
+h1{font-family:var(--font-display);font-weight:600;font-size:clamp(34px,6vw,54px);line-height:1.02;margin:12px 0 0;color:var(--plum-deep)}
+.lede{margin-top:16px;font-size:clamp(16px,2.2vw,18.5px);color:var(--ink-2);max-width:58ch;text-wrap:pretty}
+.rule{height:4px;width:64px;background:var(--coral);border-radius:2px;margin:28px 0 0}
+.card{margin-top:34px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg);box-shadow:var(--shadow);padding:28px 30px;display:grid;gap:20px}
+.card-head{display:flex;align-items:center;gap:12px}
+.card-head .mark{width:36px;height:36px;flex:0 0 36px;border-radius:10px;background:#f3e7f0;display:grid;place-items:center;color:var(--plum)}
+.card-head h2{font-family:var(--font-display);font-weight:600;font-size:19px;color:var(--ink);letter-spacing:.01em}
+.contact{display:flex;flex-wrap:wrap;align-items:center;gap:14px 18px;padding:18px 20px;background:var(--surface-2);border:1px solid var(--line);border-radius:var(--radius)}
+.contact .label{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);font-weight:700;width:100%}
+.contact .addr{font-family:var(--font-display);font-weight:500;font-size:clamp(17px,3.2vw,25px);color:var(--plum-deep);word-break:break-all;letter-spacing:.005em}
+.contact .addr:hover{color:var(--plum);text-decoration:none}
+.btn{display:inline-flex;align-items:center;gap:9px;background:var(--plum);color:#fff;font-weight:800;font-size:14px;padding:12px 20px;border-radius:999px;transition:background .14s,transform .14s}
+.btn:hover{background:var(--plum-deep);color:#fff;text-decoration:none;transform:translateY(-1px)}
+.hint{font-size:14px;color:var(--ink-2)}
+.hint strong{color:var(--ink);font-weight:800}
+ul.checklist{list-style:none;display:grid;gap:10px}
+ul.checklist li{display:flex;gap:11px;font-size:14.5px;color:var(--ink-2)}
+ul.checklist li::before{content:"";flex:0 0 7px;height:7px;border-radius:50%;background:var(--coral-deep);margin-top:8px}
+.note{margin-top:24px;font-family:var(--font-display);font-weight:500;font-size:16.5px;color:var(--slate);letter-spacing:.01em}
+.meta{margin-top:30px;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px}
+.meta div{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:15px 17px}
+.meta dt{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);font-weight:700}
+.meta dd{font-family:var(--font-display);font-weight:500;font-size:16px;color:var(--ink);margin-top:5px}
+footer{border-top:1px solid var(--line);padding:20px 22px;display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;justify-content:center;font-size:12.5px;color:var(--ink-3)}
+footer img{height:20px;width:auto;opacity:.75}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <img src="assets/logo-tc.png" alt="TrackingCube — Neurodevelopmental Tracking System">
+  <div class="sys">Support</div>
+</header>
+<main class="wrap">
+  <div class="sheet">
+    <div class="eyebrow upper">Tracking Cube Project Support</div>
+    <h1>Need help with<br>TrackingCube?</h1>
+    <div class="rule"></div>
+    <p class="lede">This page is the public support contact for this tenant. If you run into a technical problem — sign-in trouble, missing data, a page that will not load, or anything that blocks your work — reach out and we will pick it up.</p>
+
+    <section class="card">
+      <div class="card-head">
+        <div class="mark"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"></rect><path d="M3 7l9 6 9-6"></path></svg></div>
+        <h2>Contact support</h2>
+      </div>
+      <div class="contact">
+        <span class="label">Email</span>
+        <a class="addr" href="mailto:tony.nguyen12@griffith.edu.au">tony.nguyen12@griffith.edu.au</a>
+        <a class="btn" href="mailto:tony.nguyen12@griffith.edu.au?subject=TrackingCube%20support%20request">Send an email</a>
+      </div>
+      <p class="hint">Please include your <strong>Project Name</strong> and a description of what you were doing when the problem happened — it lets us reproduce the issue without a round of questions.</p>
+      <ul class="checklist">
+        <li>The page or screen where the problem occurred</li>
+        <li>What you expected to happen, and what happened instead</li>
+        <li>A screenshot, plus the date and time you saw it</li>
+      </ul>
+    </section>
+
+    <p class="note">Response within 48 hours during business days — thank you for your patience.</p>
+  </div>
+</main>
+<footer>
+  <img src="assets/logo-purple.png" alt="">
+  <span>TrackingCube® — Neurodevelopmental Tracking System</span>
+  <span>·</span>
+  <span>Support contact for TrackingCube projects</span>
+</footer>
+</body>
+</html>
