@@ -49,15 +49,25 @@ h1{font-family:var(--font-display);font-weight:600;font-size:clamp(30px,5vw,46px
 .doc > *{min-width:0}
 @media (min-width:940px){
   .doc{grid-template-columns:216px 1fr;gap:44px;align-items:start}
-  .toc{position:sticky;top:28px}
+  .docnav{position:sticky;top:28px}
 }
-.toc{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px 18px 16px}
-.toc h2{font-family:var(--font-display);font-weight:600;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:12px}
-.toc ol{list-style:none;counter-reset:toc;display:grid;gap:8px}
-.toc li{counter-increment:toc;font-size:13.5px;line-height:1.4;display:flex;gap:9px}
-.toc li::before{content:counter(toc);flex:0 0 18px;color:var(--ink-3);font-variant-numeric:tabular-nums;font-size:12px;padding-top:1px}
-.toc a{color:var(--ink-2)}
-.toc a:hover{color:var(--plum)}
+/* Sidebar: jumps between the privacy documents, sticky alongside the body card */
+.docnav{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px 18px 16px}
+.docnav h2{font-family:var(--font-display);font-weight:600;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:10px}
+.docnav ul{list-style:none;display:grid;gap:2px}
+.docnav ul + ul{margin-top:14px;padding-top:13px;border-top:1px solid var(--line)}
+.docnav a{display:block;font-size:13.5px;line-height:1.35;color:var(--ink-2);padding:7px 10px;border-radius:9px}
+.docnav a:hover{color:var(--plum);background:var(--surface-2);text-decoration:none}
+.docnav a[aria-current="page"]{color:var(--plum-deep);font-weight:800;background:var(--surface-2);box-shadow:inset 2px 0 0 var(--coral)}
+/* Below the two-column breakpoint the sidebar sits above the card, so lay it out
+   as wrapping chips instead of a tall stack that pushes the content off-screen */
+@media (max-width:939px){
+  .docnav{padding:15px 16px 13px}
+  .docnav ul{display:flex;flex-wrap:wrap;gap:8px}
+  .docnav ul + ul{margin-top:14px;padding-top:12px}
+  .docnav a{border:1px solid var(--line);border-radius:999px;padding:6px 13px}
+  .docnav a[aria-current="page"]{box-shadow:none;border-color:var(--plum-soft)}
+}
 
 /* Body card */
 .body-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg);box-shadow:var(--shadow);padding:32px 34px}
