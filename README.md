@@ -13,6 +13,7 @@ This repository is structured to support:
   - `system-overview/` — platform-level and cross-tier docs
     - `assets/yourtrack-eco/` — ecosystem product logos (YourTrack, RNDA, TrackingCube)
   - `tiers/` — tier-specific documentation for `tier-1` to `tier-6`
+  - `redcap/` — REDCap user guides
 
 ## Where to Start
 

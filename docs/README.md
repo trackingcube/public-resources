@@ -8,6 +8,7 @@ This folder contains all official public documentation for TrackingCube.
   - `assets/site-participants/logos/` — site / partner logos
   - `assets/yourtrack-eco/` — YourTrack ecosystem product logos
 - `tiers/` — tier-specific public docs for operational use
+- `redcap/` — REDCap user guides for Tracking Cube sites
 
 ## Tier Convention
 
